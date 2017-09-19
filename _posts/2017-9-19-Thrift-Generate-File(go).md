@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Linux常用命令
+title: Thrift生成文件简析
 ---
 ## thrift文件内容
 ```
