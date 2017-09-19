@@ -13,10 +13,12 @@ service myser {
   mydata myif1(1: i32 funparam1,2: string funparam2),
   i32 myif2(1: i32 funparam1)
 }
-
 ```
+
 ## ttypes.go文件内容
-### 结构体 Mydata 
+
+### 结构体 Mydata   
+
 * 函数 NewMydata()
 * 函数 Write()
     * WriteStructBegin()
@@ -35,11 +37,16 @@ service myser {
 * 内部函数 writeField1()
 * 内部函数 writeField2()
 * 函数 String()
+
+----------------------------------
+
 ## myser.go文件内容
+
 ### 接口 Myser
 * Myif1(funparam1 int32, funparam2 string) (r *Mydata, err error)
 * Myif2(funparam1 int32) (r int32, err error)
-###结构体 MyserClient
+
+### 结构体 MyserClient
 * 域
     * Transport
     * ProtocolFactory
@@ -61,6 +68,7 @@ service myser {
     * func (p *MyserClient) Myif2(funparam1 int32) (r int32, err error) 
         * func (p *MyserClient) sendMyif2(funparam1 int32) (err error)
         * func (p *MyserClient) recvMyif2() (value int32, err error) 
+
 ### 结构体 MyserProcessor
 * 域
     * processorMap map[string]thrift.TProcessorFunction
@@ -79,16 +87,19 @@ service myser {
         * 按传输协议读取接口名称
         * 从 processorMap 中查出接口名称对应的接口地址
         * 根据接口地址调用接口(实际调用的是`myserProcessorMyif1.Process || myserProcessorMyif.Process`)
+
 ### 结构体 myserProcessorMyif1
 * handler Myser
 * func (p *myserProcessorMyif1) Process(seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException)
     * 有异常要把异常抛到客户端
     * 调用 handler 内接口,将结果返回客户端
+    
 ### 结构体 myserProcessorMyif2
 * handler Myser
 * func (p *myserProcessorMyif2) Process(seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException)
     * 有异常要把异常抛到客户端
     * 调用 handler 内接口,将结果返回客户端
+
 ### 辅助函数和辅助结构体
 * 将每一个接口的参数封装成结构体
 * 将每一个接口的返回值封装成结构体
