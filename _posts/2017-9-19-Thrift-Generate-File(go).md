@@ -1,3 +1,7 @@
+---
+layout: post
+title: Linux常用命令
+---
 ## thrift文件内容
 ```
 struct mydata {
